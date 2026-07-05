@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henvaris Classic</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* CARRINHO */
+#cart {
+position:fixed;
+right:20px;
+bottom:80px;
+background:#fff;
+width:300px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+border-radius:10px;
+padding:10px;
+font-family:Arial;
+display:none;
+z-index:999;
+}
+
+#cart h3 {
+margin:0 0 10px;
+}
+
+#cart button {
+width:100%;
+padding:10px;
+background:black;
+color:#fff;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* PRODUTO ITEM */
+.cart-item {
+border-bottom:1px solid #eee;
+padding:8px 0;
+font-size:14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+<img src="assets/logo.png" alt="Henvaris">
+</div>
+
+<nav>
+
+<a href="#inicio" onclick="filtrarCategoria('todos')">Início</a>
+
+<a href="#" onclick="filtrarCategoria('camisetas');return false;">Camisetas</a>
+
+<a href="#" onclick="filtrarCategoria('camisas');return false;">Camisas</a>
+
+<a href="#" onclick="filtrarCategoria('calcas');return false;">Calças</a>
+
+<a href="#" onclick="filtrarCategoria('jaquetas');return false;">Jaquetas</a>
+
+<a href="#" onclick="filtrarCategoria('moletons');return false;">Moletons</a>
+
+<a href="#" onclick="filtrarCategoria('social');return false;">Social</a>
+
+<a href="#" onclick="filtrarCategoria('todos');return false;">Todos</a>
+
+<a href="#contato">Contato</a>
+
+</nav>
+
+<div class="icons">
+
+<span onclick="abrirBusca()">🔍</span>
+
+<div class="cart-icon" onclick="toggleCart()">
+    🛒
+    <span id="cart-count">0</span>
+</div>
+
+<span onclick="abrirLogin()">👤</span>
+
+</div>
+
+</header>
+
+<section id="inicio" class="hero">
+
+<div class="hero-content">
+
+<h1>ELEVE SEU ESTILO</h1>
+
+<p>
+Moda clássica para homens que valorizam elegância,
+presença e identidade.
+</p>
+
+<a href="#" class="btn">VER COLEÇÃO</a>
+
+</div>
+
+</section>
+
+<section class="banner-promocional">
+
+    <img src="assets/banner-mobile.jpg" alt="Banner">
+
+</section>
+
+<section class="beneficios">
+
+<div>🚚 Frete para todo Brasil</div>
+<div>🔒 Compra Segura</div>
+<div>💳 PIX e Cartão</div>
+<div>⭐ Qualidade Premium</div>
+
+</section>
+
+<section class="produtos">
+
+<h2>Mais Vendidos</h2>
+
+<div class="produto-grid">
+
+<!-- PRODUTO 1 -->
+<div class="produto" data-categoria="camisetas">
+<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800">
+<h3>Camiseta Essential</h3>
+<p>R$ 89,90</p>
+<span>Camiseta minimalista premium.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Camiseta Essential',89.90)">
+    Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Camiseta Essential',89.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 2 -->
+<div class="produto" data-categoria="social">
+<img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800">
+<h3>Blazer Modern</h3>
+<p>R$ 289,90</p>
+<span>Blazer sofisticado slim fit.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Blazer Modern',289.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Blazer Modern',289.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 3 -->
+<div class="produto" data-categoria="calcas">
+<img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800">
+<h3>Calça Social</h3>
+<p>R$ 169,90</p>
+<span>Elegância clássica masculina.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Calça Social',169.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Calça Social',169.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 4 -->
+<div class="produto" data-categoria="jaquetas">
+<img src="https://images.unsplash.com/photo-1514996937319-344454492b37?w=800">
+<h3>Jaqueta Premium</h3>
+<p>R$ 249,90</p>
+<span>Visual moderno e sofisticado.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Jaqueta Premium',249.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Jaqueta Premium',249.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 5 -->
+<div class="produto" data-categoria="camisetas">
+<img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=800">
+<h3>Polo Luxury</h3>
+<p>R$ 139,90</p>
+<span>Polo premium com acabamento refinado.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Polo Luxury',139.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Polo Luxury',139.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 6 -->
+<div class="produto" data-categoria="social">
+<img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800">
+<h3>Terno Classic</h3>
+<p>R$ 499,90</p>
+<span>Presença e elegância absoluta.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Terno Classic',499.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Terno Classic',499.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 7 -->
+<div class="produto" data-categoria="camisas">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800">
+<h3>Camisa Linen</h3>
+<p>R$ 159,90</p>
+<span>Leveza e estilo para o verão.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Camisa Linen',159.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Camisa Linen',159.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 8 -->
+<div class="produto" data-categoria="moletons">
+<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800">
+<h3>Moletom Urban</h3>
+<p>R$ 189,90</p>
+<span>Conforto premium street casual.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Moletom Urban',189.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Moletom Urban',189.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 9 -->
+<div class="produto" data-categoria="calcas">
+<img src="https://images.unsplash.com/photo-1506629905607-5e6e3c1d8d18?w=800">
+<h3>Calça Slim Fit</h3>
+<p>R$ 179,90</p>
+<span>Corte moderno e elegante.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Calça Slim Fit',179.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Calça Slim Fit',179.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 10 -->
+<div class="produto" data-categoria="camisetas">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800">
+<h3>Polo Executive</h3>
+<p>R$ 149,90</p>
+<span>Modelo premium sofisticado.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Polo Executive',149.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Polo Executive',149.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 11 -->
+<div class="produto" data-categoria="camisas">
+<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800">
+<h3>Camisa Premium Fit</h3>
+<p>R$ 159,90</p>
+<span>Modelagem elegante e moderna.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Camisa Premium Fit',159.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Camisa Premium Fit',159.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 12 -->
+<div class="produto" data-categoria="camisetas">
+<img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=800">
+<h3>Polo Signature</h3>
+<p>R$ 139,90</p>
+<span>Acabamento refinado premium.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Polo Signature',139.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Polo Signature',139.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 13 -->
+<div class="produto" data-categoria="jaquetas">
+<img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=800">
+<h3>Jaqueta Urban</h3>
+<p>R$ 249,90</p>
+<span>Visual urbano sofisticado.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Jaqueta Urban',249.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Jaqueta Urban',249.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 14 -->
+<div class="produto" data-categoria="social">
+<img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?w=800">
+<h3>Blazer Executive</h3>
+<p>R$ 319,90</p>
+<span>Elegância premium masculina.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Blazer Executive',319.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Blazer Executive',319.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 15 -->
+<div class="produto" data-categoria="camisas">
+<img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800">
+<h3>Camisa Luxury</h3>
+<p>R$ 169,90</p>
+<span>Conforto e sofisticação premium.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Camisa Luxury',169.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Camisa Luxury',169.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 16 -->
+<div class="produto" data-categoria="social">
+<img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800">
+<h3>Terno Elite</h3>
+<p>R$ 549,90</p>
+<span>Estilo executivo refinado.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Terno Elite',549.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Terno Elite',549.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 17 -->
+<div class="produto" data-categoria="camisas">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800">
+<h3>Camisa Casual Chic</h3>
+<p>R$ 149,90</p>
+<span>Moda casual elegante premium.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Camisa Casual Chic',149.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Camisa Casual Chic',149.90)">
+Comprar
+</button>
+</div>
+</div>
+
+<!-- PRODUTO 18 -->
+<div class="produto" data-categoria="camisetas">
+<img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800">
+<h3>Polo Black Edition</h3>
+<p>R$ 154,90</p>
+<span>Design moderno sofisticado.</span>
+
+<div class="produto-botoes">
+<button class="btn-carrinho" onclick="addToCart('Polo Black Edition',154.90)">
+Carrinho
+</button>
+
+<button class="btn-comprar" onclick="comprarAgora('Polo Black Edition',154.90)">
+Comprar
+</button>
+</div>
+</div>
+
+</div>
+
+</section>
+</section>
+
+<section class="sobre">
+
+<h2>Henvaris Classic</h2>
+
+<p>
+Acreditamos que vestir-se bem é expressar identidade,
+elegância e propósito.
+</p>
+
+</section>
+
+<section class="instagram">
+
+<h2>@henvaris_classic</h2>
+
+<a href="https://instagram.com/henvaris_classic" target="_blank">
+Seguir Instagram
+</a>
+
+</section>
+
+<footer id="contato">
+
+<img src="assets/logo.png">
+
+<p>WhatsApp: (19) 98265-0150</p>
+
+<p>© 2026 Henvaris Classic</p>
+
+</footer>
+
+<!-- CARRINHO -->
+<div id="cart">
+
+<div class="cart-header">
+<h3>🛒 Meu Carrinho</h3>
+<button class="fechar-cart" onclick="toggleCart()">✕</button>
+</div>
+
+<div id="items"></div>
+
+<div class="cart-footer">
+
+<p class="cart-total">
+<strong>Total</strong>
+<span>R$ <span id="total">0,00</span></span>
+</p>
+
+<button class="btn-finalizar" onclick="finalizar()">
+Finalizar Pedido
+</button>
+
+</div>
+
+</div>
+
+<a class="whatsapp" href="https://wa.me/5519982650150" target="_blank">💬</a>
+
+<!-- BUSCA -->
+<div id="busca-box" class="popup">
+
+<h3>Buscar</h3>
+
+<input type="text" placeholder="Buscar produtos...">
+
+<button onclick="fecharBusca()">
+Fechar
+</button>
+
+</div>
+
+<!-- LOGIN -->
+<div id="login-box" class="popup">
+
+<h3>Login</h3>
+
+<input type="email" placeholder="Seu email">
+
+<input type="password" placeholder="Sua senha">
+
+<button>
+Entrar
+</button>
+
+<button onclick="fecharLogin()">
+Fechar
+</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
